@@ -8,8 +8,8 @@ namespace TruckSimulator.Models
 {
     interface IRouteSearcher
     {
-        ITruck truck { get; set; }//авто
-        List<Cargo> _arrayPoints { get; set; }//входящий список точек маршрута
+        //ITruck _truck { get; set; }//авто
+        //List<Cargo> _arrayPoints { get; set; }//входящий список точек маршрута
 
         void GetBestRoute();
     }

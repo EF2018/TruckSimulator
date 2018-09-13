@@ -1,31 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
 
 namespace TruckSimulator.Models
 {
-    class Route:IRouteSearcher
+    class BruteForce: Builder, IRouteSearcher
     {
-        public List<Cargo> ArrayPoints
-        {
-            get { return _arrayPoints; }
-            set { _arrayPoints = value; }
-        }
+        //public List<Cargo> ArrayPoints
+        //{
+        //    get { return _arrayPoints; }
+        //    set { _arrayPoints = value; }
+        //}
 
-        public ITruck Truck
-        {
-            get { return _truck; }
-            set { _truck = value; }
-        }
+        //public ITruck Truck
+        //{
+        //    get { return _truck; }
+        //    set { _truck = value; }
+        //}
 
-        public List<List<Cargo>> BestCombinationArray
-        {
-            get { return _bestCombinationArray; }
-            set { _bestCombinationArray = value; }
-        }
+        //public List<List<Cargo>> BestCombinationArray
+        //{
+        //    get { return _bestCombinationArray; }
+        //    set { _bestCombinationArray = value; }
+        //}
 
         public List<Cargo> ArrayPointsTemp
         {
@@ -35,18 +34,18 @@ namespace TruckSimulator.Models
 
         public int QpointsOfRoute
         {
-            get{ return _qPointsOfRoute; }
-            set{ _qPointsOfRoute = value; }
+            get { return _qPointsOfRoute; }
+            set { _qPointsOfRoute = value; }
         }
 
 
-        public Route(List<Cargo> arrayPoints, ITruck truck)
+        public BruteForce(List<Cargo> arrayPoints, ITruck truck):base(arrayPoints, truck)
         {
-            _arrayPoints = arrayPoints;
-            _truck = truck;
-            _qPointsOfRoute = arrayPoints.Count()+1;
+            //_arrayPoints = arrayPoints;
+            //_truck = truck;
+            _qPointsOfRoute = arrayPoints.Count() + 1;
             a = CreatePermutationArr();//инициализация массив перебора
-            _bestCombinationArray = new List<List<Cargo>>();
+            //_bestCombinationArray = new List<List<Cargo>>();
         }
 
         /// <summary>
@@ -67,39 +66,39 @@ namespace TruckSimulator.Models
         /// Вычисляет общую длину маршрута
         /// </summary>
         /// <returns></returns>
-        public int LenghtRoute(List<Cargo> Arr)
-        {
-            return this.BuildRouteByPoints(Arr).Count;
-        }
+        //public int LenghtRoute(List<Cargo> Arr)
+        //{
+        //    return this.BuildRouteByPoints(Arr).Count;
+        //}
 
         /// <summary>
         /// Выдает количество ходов в маршруте
         /// </summary>
         /// <returns></returns>
-        private int CountPointsOfRoute()
-        {
-            return ArrayPoints.Count;
-        }
+        //private int CountPointsOfRoute()
+        //{
+        //    return ArrayPoints.Count;
+        //}
 
         /// <summary>
         /// Построение маршрута по списку точек
         /// </summary>
         /// <returns></returns>
-        public List<Point> BuildRouteByPoints(List <Cargo> Arr)
-        {
-            List<Point> Route = new List<Point>();
-            Way approach = new Way((Point)Truck, Arr[0]);
-            Route.AddRange(approach.BuildLine());
-            Route.Add(Arr[0]);
+        //public List<Point> BuildRouteByPoints(List<Cargo> Arr)
+        //{
+        //    List<Point> Route = new List<Point>();
+        //    Way approach = new Way((Point)Truck, Arr[0]);
+        //    Route.AddRange(approach.BuildLine());
+        //    Route.Add(Arr[0]);
 
-            for (int i = 0; i < Arr.Count - 1; i++)
-            {
-                Way trip = new Way(Arr[i], Arr[i + 1]);
-                Route.AddRange(trip.BuildLine());
-                Route.Add(Arr[i+1]);
-            }
-            return Route;
-        }
+        //    for (int i = 0; i < Arr.Count - 1; i++)
+        //    {
+        //        Way trip = new Way(Arr[i], Arr[i + 1]);
+        //        Route.AddRange(trip.BuildLine());
+        //        Route.Add(Arr[i + 1]);
+        //    }
+        //    return Route;
+        //}
 
         /// <summary>
         /// Поиск и построение кратчайшего маршрута  
@@ -119,7 +118,7 @@ namespace TruckSimulator.Models
             int n = QpointsOfRoute;//this.CountPointsOfRoute()+1;
             if (t == n - 1)
             {
-                GetNewRoute();
+                ChangeNumbersToRoute();
                 if (BestCombinationArray.Count == 0)//если еще не заполнен
                 {
                     BestCombinationArray.Add(ArrayPointsTemp);
@@ -135,7 +134,7 @@ namespace TruckSimulator.Models
             else
             {
                 for (int j = t; j < n - 1; ++j)
-                { 
+                {
                     int c = a[t];//обмен
                     a[t] = a[j];
                     a[j] = c;
@@ -150,18 +149,18 @@ namespace TruckSimulator.Models
         }
 
         /// <summary>
-        /// Получение нового маршрута из перестановки 
+        /// Получение маршрута из числовой перестановки 
         /// </summary>
-        private void GetNewRoute()
+        private void ChangeNumbersToRoute()
         {
             //int n = this.CountPointsOfRoute() + 1;
             List<Cargo> combinationArr = new List<Cargo>(); //Создаем технический массив для размещения в нем комбинации маршрута
-            
+
             //int[] b1 = new int[QpointsOfRoute - 1];//проверка
             for (int i = 0; i < a.Length; i++)
             {
                 combinationArr.Add(ArrayPoints[a[i] - 1]);
-            //    b1[i] = a[i];//проверка
+                //    b1[i] = a[i];//проверка
             }
             ArrayPointsTemp = combinationArr;
         }
@@ -181,47 +180,48 @@ namespace TruckSimulator.Models
                 BestCombinationArray.Add(ArrayPointsTemp);
                 _bestCombinationArrayCount = this.BuildRouteByPoints(BestCombinationArray[0]).Count();
             }
- //           применить при оценке конкурентных маршрутов
- //           if (newroute == bestroute)
- //           {
- //               Route._bestCombinationArray.Add(ArrayPointsTemp);
- //           }
+            //           применить при оценке конкурентных маршрутов
+            //           if (newroute == bestroute)
+            //           {
+            //               Route._bestCombinationArray.Add(ArrayPointsTemp);
+            //           }
         }
 
-        public void DrawRoute(Bitmap bmpmain)
-        {
-            Way way0 = new Way((Point)Truck, ArrayPoints[0]);
-            way0.DrawLine(bmpmain);
+        //public void DrawRoute(Bitmap bmpmain)
+        //{
+        //    Way way0 = new Way((Point)Truck, ArrayPoints[0]);
+        //    way0.DrawLine(bmpmain);
 
-            for (int i = 0; i < ArrayPoints.Count - 1; i++)
-            {
-                Way way = new Way(ArrayPoints[i], ArrayPoints[i + 1]);
-                way.DrawLine(bmpmain);
-            }
-        }
+        //    for (int i = 0; i < ArrayPoints.Count - 1; i++)
+        //    {
+        //        Way way = new Way(ArrayPoints[i], ArrayPoints[i + 1]);
+        //        way.DrawLine(bmpmain);
+        //    }
+        //}
 
-        public void ClearRoute(Bitmap bmpmain)
-        {
-            Way way0 = new Way((Point)Truck, ArrayPoints[0]);
-            way0.Clear(bmpmain);
+        //public void ClearRoute(Bitmap bmpmain)
+        //{
+        //    Way way0 = new Way((Point)Truck, ArrayPoints[0]);
+        //    way0.Clear(bmpmain);
 
-            for (int i = 0; i < ArrayPoints.Count - 1; i++)
-            {
-                Way way = new Way(ArrayPoints[i], ArrayPoints[i + 1]);
-                way.Clear(bmpmain);
-            }
-        }
+        //    for (int i = 0; i < ArrayPoints.Count - 1; i++)
+        //    {
+        //        Way way = new Way(ArrayPoints[i], ArrayPoints[i + 1]);
+        //        way.Clear(bmpmain);
+        //    }
+        //}
 
         private static int[] a;
         private static int t; //индекс элемента, который включается в очередную перестановку
-        private static List<List<Cargo>> _bestCombinationArray = new List<List<Cargo>>();//массив лучшей перестановки
         private static int _bestCombinationArrayCount;//длина массива лучшей перестановки
         private static List<int[]> b = new List<int[]>();
 
-        public ITruck _truck { get; set; }//авто
-        public List<Cargo> _arrayPoints { get; set; }//входящий список точек маршрута
+        //private static List<List<Cargo>> _bestCombinationArray = new List<List<Cargo>>();//массив лучшей перестановки
+
+        //public ITruck _truck { get; set; }//авто
+        //public List<Cargo> _arrayPoints { get; set; }//входящий список точек маршрута
         //private int _arraPointsCount; //входящее количество точек маршрута
-        
+
         private List<Cargo> _arrayPointsTemp;//
         private int _qPointsOfRoute;//количество точек в маршруте
     }

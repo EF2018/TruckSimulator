@@ -119,7 +119,7 @@ namespace TruckSimulator.Models
         /// <param name="bmpmain"></param>
         public void DeletePointFromArr(Cargo cargo, Bitmap bmpmain)
         {
-            Route myRoute = new Route(ChoosePointsArr, this);
+            BruteForce myRoute = new BruteForce(ChoosePointsArr, this);
             myRoute.ClearRoute(bmpmain);
             ChoosePointsArr.Remove(cargo);
             UpdateRoute(bmpmain);
@@ -131,7 +131,7 @@ namespace TruckSimulator.Models
         /// <param name="bmpmain"></param>
         private void UpdateRoute(Bitmap bmpmain)
         {
-            Route myRoute = new Route(ChoosePointsArr, this);
+            BruteForce myRoute = new BruteForce(ChoosePointsArr, this);
             RouteList = myRoute.BuildRouteByPoints(ChoosePointsArr);
             myRoute.ClearRoute(bmpmain);
             myRoute.DrawRoute(bmpmain);

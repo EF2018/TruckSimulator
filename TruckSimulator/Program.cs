@@ -17,9 +17,6 @@ namespace TruckSimulator
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            //var m = new Model();
-            // создаем UI и привязываем его к модели
-            //View.Show(m.DataSource, m.DataMember);
         }
     }
 }

@@ -62,7 +62,7 @@ namespace TruckSimulator.Models
             if (Status)//если свободен - ищем новый маршрут
             {
                 List<Cargo> myListCargo = map.GetCargoList();
-                Route myRoute = new Route(myListCargo, this);
+                BruteForce myRoute = new BruteForce(myListCargo, this);
                 RouteList = myRoute.BuildBestRoute();
                 Status = false;
             }

@@ -8,7 +8,7 @@ namespace TruckSimulator.Models
 {
     class Dijkstra : IRouteSearcher
     {
-        public ITruck truck { get; set; }
+        public ITruck _truck { get; set; }
         public List<Cargo> _arrayPoints { get; set; }
 
         public void GetBestRoute()

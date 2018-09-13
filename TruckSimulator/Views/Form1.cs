@@ -144,10 +144,6 @@ namespace TruckSimulator
                 }
                 lblIteration.Text = this.presenter._map.CurIteration.ToString();
                 this.Invalidate();
-                //dataGridView1.Invalidate();
-                //pictureBox1.Refresh();
-                //lblIteration.Invalidate();
-                //SetlblCurIteration(); //
             }
         }
 
@@ -237,8 +233,8 @@ namespace TruckSimulator
         private SqlConnectionStringBuilder CreateConnection()
         {
             SqlConnectionStringBuilder bldr = new SqlConnectionStringBuilder();
-            bldr.DataSource = ;
-            bldr.InitialCatalog = ;
+            bldr.DataSource = "ADMIN-ПК/SQLEXPRESS1";
+            bldr.InitialCatalog = "Simulator_base";
             bldr.IntegratedSecurity = true;
             return bldr;
         }
