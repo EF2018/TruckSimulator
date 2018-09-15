@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace TruckSimulator.Models
+namespace TruckSimulator
 {
-    class User: Truck
+    public class User: Truck
     {
         //delegate void ClickMouse1();
         //ClickMouse1 del;

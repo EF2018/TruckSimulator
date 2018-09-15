@@ -7,9 +7,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace TruckSimulator.Models
+namespace TruckSimulator
 {
-    class Truck : Point, ITruck
+    public class Truck : Point, ITruck
     {
         public int Fuelbalance
         {
@@ -125,6 +125,6 @@ namespace TruckSimulator.Models
         private int _fuelCharge;//расход топлива на 1 ход
         private bool _status;//cтатус (свободен или нет)
         private List <Point> _routeList;//маршрутный лист
-        public static int _truckCounter = 1;
+        private static int _truckCounter = 1;
     }
 }

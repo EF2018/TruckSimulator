@@ -60,7 +60,6 @@
     <Compile Include="Views\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\IPoint.cs" />
     <Compile Include="Models\Algorithms\IRouteSearcher.cs" />
     <Compile Include="Models\ITruck.cs" />
     <Compile Include="Models\Map.cs" />

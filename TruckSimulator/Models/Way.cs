@@ -6,59 +6,48 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace TruckSimulator.Models
+namespace TruckSimulator
 {
-    class Way
+    public class Way
     {
-        public Point Start
+        public Point StartPoint
         {
-            get { return _start; }
-            set { _start = value; }
+            get { return _startPoint; }
+            set { _startPoint = value; }
         }
 
-        public Point Finish
+        public Point EndPoint
         {
-            get { return _finish; }
-            set { _finish = value; }
+            get { return _endPoint; }
+            set { _endPoint = value; }
         }
 
         public Way(Point start, Point finish)
         {
-            _start = start;
-            _finish = finish;
-        }
-
-        public Bitmap DisplayRoute(Point [] way, Bitmap bmp)
-        {
-            Pen pen = new Pen(Color.Aqua);
-            foreach (var item in way)
-            {
-                 Graphics graph = Graphics.FromImage(bmp);
-                 graph.DrawRectangle(pen, item.Position.X, item.Position.Y, 1, 1);
-            }
-            return bmp;
+            _startPoint = start;
+            _endPoint = finish;
         }
 
         /// <summary>
         /// Вычисление длины ломаной линии от начальной точки к конечной 
         /// </summary>
         /// <returns></returns>
-        public int CountLenghtLine()
+        public int CountLenghtWay()
         {
-            return this.BuildLine().Length;
+            return this.BuildWay().Length;
         }
 
         /// <summary>
         /// Метод строит ломанную максимально привязываясь к прямой между двумя точками
         /// </summary>
         /// <returns></returns>
-        public Point[] BuildLine()
+        public Point[] BuildWay()
         {
             Point[] LineArray = new Point[1] { new Point() };//???
-            double x1 = Start.Position.X;
-            double x2 = Finish.Position.X;
-            double y1 = Start.Position.Y;
-            double y2 = Finish.Position.Y;
+            double x1 = StartPoint.Position.X;
+            double x2 = EndPoint.Position.X;
+            double y1 = StartPoint.Position.Y;
+            double y2 = EndPoint.Position.Y;
             double i1;
             double i2;
             double j1;
@@ -182,7 +171,7 @@ namespace TruckSimulator.Models
                 //BrokenLineArray[f].Color = ConsoleColor.White;
                 //BrokenLineArray[f].backColor = ConsoleColor.Black;
             }
-            if (Start.Position.X > Finish.Position.X)
+            if (StartPoint.Position.X > EndPoint.Position.X)
             {
                 Array.Reverse(BrokenLineArray);
 
@@ -197,27 +186,34 @@ namespace TruckSimulator.Models
             return BrokenLineArray;
         }
 
-        public Bitmap DrawLine(Bitmap bmpmain)
+        public Bitmap DrawWay(Bitmap bmpmain)
         {
             Pen penline = new Pen(Color.Red, 1);
-
             Graphics graph = Graphics.FromImage(bmpmain);
-            graph.DrawLine(penline, Start.Position.X, Start.Position.Y, Finish.Position.X, Finish.Position.Y);
-           
+            graph.DrawLine(penline, StartPoint.Position.X, StartPoint.Position.Y, EndPoint.Position.X, EndPoint.Position.Y);
             return bmpmain;
         }
 
-        public Bitmap Clear(Bitmap bmpmain)
+        public Bitmap ClearWay(Bitmap bmpmain)
         {
             Pen penline = new Pen(Color.White, 1);
-
             Graphics graph = Graphics.FromImage(bmpmain);
-            graph.DrawLine(penline, Start.Position.X, Start.Position.Y, Finish.Position.X, Finish.Position.Y);
-
+            graph.DrawLine(penline, StartPoint.Position.X, StartPoint.Position.Y, EndPoint.Position.X, EndPoint.Position.Y);
             return bmpmain;
         }
 
-        private Point _start;
-        private Point _finish;
+        //public Bitmap DisplayWays(Point[] way, Bitmap bmp)
+        //{
+        //    Pen pen = new Pen(Color.Aqua);
+        //    foreach (var item in way)
+        //    {
+        //        Graphics graph = Graphics.FromImage(bmp);
+        //        graph.DrawRectangle(pen, item.Position.X, item.Position.Y, 1, 1);
+        //    }
+        //    return bmp;
+        //}
+
+        private Point _startPoint;
+        private Point _endPoint;
     }
 }

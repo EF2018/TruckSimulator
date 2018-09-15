@@ -7,9 +7,9 @@ using System.Drawing;
 using System.Windows.Forms;
 
 
-namespace TruckSimulator.Models
+namespace TruckSimulator
 {
-    class Cargo : Point
+    public class Cargo : Point
     {
         #region CTOR
         public Cargo(Coordinate position) : base(position)
@@ -50,7 +50,7 @@ namespace TruckSimulator.Models
 
         #region Attributes
         private int _value;
-        public static int _cargoCounter;
+        private static int _cargoCounter;
         private bool _statusCargo;
         #endregion
     }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace TruckSimulator.Models
+namespace TruckSimulator
 {
-    class Point : IPoint
+    public class Point
     {
         #region Properties        
         public Font Font

@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TruckSimulator.Models
+namespace TruckSimulator
 {
-    interface ITruck
+    public interface ITruck
     {
         int Fuelbalance { get; set; }
         int StepOfRoute { get; set; }

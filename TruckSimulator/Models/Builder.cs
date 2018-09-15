@@ -5,20 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TruckSimulator.Models
+namespace TruckSimulator
 {
-    abstract class Builder
+    public abstract class Builder
     {
-        public static List<List<Cargo>> _bestCombinationArray = new List<List<Cargo>>();//массив лучшей перестановки
-        public ITruck _truck { get; set; }//авто
-        public List<Cargo> _arrayPoints { get; set; }//входящий список точек маршрута
-
         public List<List<Cargo>> BestCombinationArray
         {
             get { return _bestCombinationArray; }
             set { _bestCombinationArray = value; }
         }
 
+        /// <summary>
+        /// входящий список точек маршрута
+        /// </summary>
         public List<Cargo> ArrayPoints
         {
             get { return _arrayPoints; }
@@ -60,13 +59,13 @@ namespace TruckSimulator.Models
         {
             List<Point> Route = new List<Point>();
             Way approach = new Way((Point) Truck, Arr[0]);
-            Route.AddRange(approach.BuildLine());
+            Route.AddRange(approach.BuildWay());
             Route.Add(Arr[0]);
 
             for (int i = 0; i < Arr.Count - 1; i++)
             {
                 Way trip = new Way(Arr[i], Arr[i + 1]);
-                Route.AddRange(trip.BuildLine());
+                Route.AddRange(trip.BuildWay());
                 Route.Add(Arr[i + 1]);
             }
             return Route;
@@ -76,25 +75,41 @@ namespace TruckSimulator.Models
         public void DrawRoute(Bitmap bmpmain)
         {
             Way way0 = new Way((Point)Truck, ArrayPoints[0]);
-            way0.DrawLine(bmpmain);
+            way0.DrawWay(bmpmain);
 
             for (int i = 0; i < ArrayPoints.Count - 1; i++)
             {
                 Way way = new Way(ArrayPoints[i], ArrayPoints[i + 1]);
-                way.DrawLine(bmpmain);
+                way.DrawWay(bmpmain);
             }
         }
 
         public void ClearRoute(Bitmap bmpmain)
         {
             Way way0 = new Way((Point)Truck, ArrayPoints[0]);
-            way0.Clear(bmpmain);
+            way0.ClearWay(bmpmain);
 
             for (int i = 0; i < ArrayPoints.Count - 1; i++)
             {
                 Way way = new Way(ArrayPoints[i], ArrayPoints[i + 1]);
-                way.Clear(bmpmain);
+                way.ClearWay(bmpmain);
             }
         }
+
+        /// <summary>
+        /// Поиск и построение кратчайшего маршрута  
+        /// </summary>
+        /// <returns></returns>
+        //public List<Point> BuildBestRoute()
+        //{
+        //    this.GetBestRoute();
+        //    return BuildRouteByPoints(BestCombinationArray[0]);
+        //}
+
+
+        static List<List<Cargo>> _bestCombinationArray = new List<List<Cargo>>();//массив лучшей перестановки
+        ITruck _truck { get; set; }//авто
+        List<Cargo> _arrayPoints { get; set; }
+
     }
 }

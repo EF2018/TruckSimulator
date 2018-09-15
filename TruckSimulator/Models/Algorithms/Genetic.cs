@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TruckSimulator.Models
+namespace TruckSimulator
 {
-    class Genetic : IRouteSearcher
+    class Genetic : Builder, IRouteSearcher
     {
-        public ITruck _truck { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public List<Cargo> _arrayPoints { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Genetic(List<Cargo> arrayPoints, ITruck truck) : base(arrayPoints, truck)
+        {
+        }
 
         public void GetBestRoute()
         {

@@ -8,9 +8,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TruckSimulator.Models
+namespace TruckSimulator
 {
-    class Map
+    public class Map
     {
         private Random _random = new Random();
         private int _numTrucks;
@@ -222,8 +222,8 @@ namespace TruckSimulator.Models
         /// </summary>
         public void InitPoints()
         {
-            Truck._truckCounter = 1;
-            Cargo._cargoCounter = 0;
+            //Truck._truckCounter = 1;
+            //Cargo._cargoCounter = 0;
             if (_numTrucks > 10)
             {
                 _numTrucks = 10;

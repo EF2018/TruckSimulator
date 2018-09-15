@@ -4,12 +4,11 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TruckSimulator.Models;
 using TruckSimulator;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace TruckSimulator.Presenters
+namespace TruckSimulator
 {
     class MapPresenter
     {
