@@ -18,7 +18,6 @@ namespace TruckSimulator
             bldr.IntegratedSecurity = true;
             //bldr.UserID = "net171";
             //bldr.Password = "net171";
-
             conn = new SqlConnection(bldr.ConnectionString);
         }
 

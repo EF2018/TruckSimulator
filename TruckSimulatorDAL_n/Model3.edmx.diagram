@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d1d41b364f5147648d58940705b08fd4" Name="Diagram1" ZoomLevel="73" >
+        <EntityTypeShape EntityType="Model3.Point" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="Model3.MapPoint" Width="1.5" PointX="2.5" PointY="0.5" />
+        <InheritanceConnector EntityType="Model3.MapPoint" />
+        <EntityTypeShape EntityType="Model3.Map" Width="1.5" PointX="4.5" PointY="0.5" />
+        <AssociationConnector Association="Model3.MapMapPoint" />
+        <EntityTypeShape EntityType="Model3.RoutePoint" Width="1.5" PointX="0.5" PointY="2.5" />
+        <InheritanceConnector EntityType="Model3.RoutePoint" />
+        <EntityTypeShape EntityType="Model3.Vehicle" Width="1.5" PointX="2.5" PointY="2.5" />
+        <InheritanceConnector EntityType="Model3.Vehicle" />
+        <AssociationConnector Association="Model3.VehicleRoutePoint" />
+        <EntityTypeShape EntityType="Model3.Cargo" Width="1.5" PointX="4.5" PointY="4.5" />
+        <InheritanceConnector EntityType="Model3.Cargo" />
+        <EntityTypeShape EntityType="Model3.User" Width="1.5" PointX="2.5" PointY="4.875" />
+        <InheritanceConnector EntityType="Model3.User" />
+        <EntityTypeShape EntityType="Model3.Truck" Width="1.5" PointX="0.5" PointY="4.875" />
+        <InheritanceConnector EntityType="Model3.Truck" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

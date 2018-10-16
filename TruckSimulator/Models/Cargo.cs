@@ -12,6 +12,12 @@ namespace TruckSimulator
     public class Cargo : Point
     {
         #region CTOR
+        public Cargo()
+        {
+            Pen = new Pen(Color.Red);
+            TextColor = Brushes.Red;
+        }
+
         public Cargo(Coordinate position) : base(position)
         {
             Name = (_cargoCounter++).ToString();

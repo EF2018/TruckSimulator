@@ -7,20 +7,39 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data;
+using System.Data.SqlClient;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TruckSimulator
 {
-    public class Map
+    public delegate void del(object x, EventArgs y);
+
+    public class Map //: TruckSimulatorDAL.DataAccessLayer
     {
-        private Random _random = new Random();
-        private int _numTrucks;
-        private int _numCargoes;
-        private int _widthMap;
-        private int _heightMap;
-        private int _systemTime = 0;
-        private int _iteration;
-        private int _curIteration = 0;
-        public ArrayList _points = new ArrayList();
+        //Constructor by default
+        public Map()
+        {
+        }
+
+        //public Map(string con) : base(con)
+        //{
+        //    StrCon = con;
+        //}
+
+        [Key]
+        public int ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        public string MapName
+        {
+            get { return _mapName; }
+            set { _mapName = value; }
+        }
 
         public int NumCargoes
         {
@@ -46,17 +65,23 @@ namespace TruckSimulator
             set { _heightMap = value; }
         }
 
-        public int Iteration
+        public int NumIterations
         {
-            get { return _iteration; }
-            set { _iteration = value; }
+            get { return _numIterations; }
+            set { _numIterations = value; }
         }
 
-       public int CurIteration
+        public int CurIteration
         {
             get { return _curIteration; }
             set { _curIteration = value; }
         }
+
+        public ArrayList Points
+    {
+        get { return _points; }
+        set { _points = value; }
+    }
 
         /// <summary>
         /// Получает новые случайные координаты
@@ -70,7 +95,7 @@ namespace TruckSimulator
                 x = _random.Next(15, WidthMap - 15);
                 y = _random.Next(15, HeightMap - 15);
             }
-            while (_points.Contains(new Coordinate(x, y)));
+            while (Points.Contains(new Coordinate(x, y)));
             return new Coordinate(x, y);
         }
 
@@ -101,7 +126,7 @@ namespace TruckSimulator
         }
 
         /// <summary>
-        /// Добавление авто игрока
+        /// Добавление авто пользователя
         /// </summary>
         public void AddUser()
         {
@@ -113,18 +138,18 @@ namespace TruckSimulator
             }
         }
 
-        public User GetUser()
-        {
-            foreach (var item in _points)
-            {
-                if (item is User)
-                {
-                    User user = (User)item;
-                    return user;
-                }
-            }
-            return null;
-        }
+        //public User GetUser()
+        //{
+        //    foreach (var item in _points)
+        //    {
+        //        if (item is User)
+        //        {
+        //            User user = (User)item;
+        //            return user;
+        //        }
+        //    }
+        //    return null;
+        //}
 
         /// <summary>
         /// Получает текущий список грузов
@@ -238,14 +263,14 @@ namespace TruckSimulator
             AddUser();
         }
 
-        public Bitmap ShowMap()
+        public Bitmap Show()
         {
             Bitmap bmpmain = new Bitmap(_widthMap, _heightMap);
 
             foreach (Point item in _points)
             {
                 Graphics graph = Graphics.FromImage(bmpmain);
-                graph.DrawRectangle(item.Pen, item.Position.X, item.Position.Y, 5, 5);
+                //graph.DrawRectangle(item.Pen1, item.Position.X, item.Position.Y, 5, 5);
                 graph.DrawString(item.Name, item.Font, item.TextColor, item.Position.X + 3, item.Position.Y + 3);
             }
             return bmpmain;
@@ -262,9 +287,9 @@ namespace TruckSimulator
         /// Запуск генерации
         /// </summary>
         /// <param name="method"></param>
-        internal void RunMap(del method)
+        public void RunMap(del method)
         {
-            for (; CurIteration < Iteration; CurIteration++)
+            for (; CurIteration < NumIterations; CurIteration++)
             {
                 foreach (Point on in _points.ToArray())
                 {
@@ -274,5 +299,17 @@ namespace TruckSimulator
             };
             MessageBox.Show("Iterations end");
         }
+
+        private Random _random = new Random();
+        private int _id;
+        private string _mapName;
+        private int _numTrucks;
+        private int _numCargoes;
+        private int _widthMap = 100;
+        private int _heightMap = 100;
+        private int _numIterations;
+        private int _curIteration = 0;
+        private ArrayList _points = new ArrayList();
+        //private int _systemTime = 0;
     }
 }

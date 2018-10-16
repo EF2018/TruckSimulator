@@ -1,47 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TruckSimulator;
-using System.Windows.Forms;
-using System.Threading;
 
 namespace TruckSimulator
 {
-    class MapPresenter
+    public class MapPresenter
     {
-        public IMap mapview;
-        public Map _map;
+        public IMap Mapview { get => _mapview; set => _mapview = value; }
+        public Map Map { get => _map; set => _map = value; }
 
         public MapPresenter(IMap view)
         {
-            mapview = view;
+            _mapview = view;
             _map = new Map();
         }
 
-        public void ShowPoints()
+        public MapPresenter(IMap view, Map map)
         {
-            _map.NumCargoes = Convert.ToInt32(mapview.QCargo);
-            _map.NumTrucks = Convert.ToInt32(mapview.QTruck);
-            _map.Iteration = Convert.ToInt32(mapview.Qiterations);
-            _map.WidthMap = mapview.width;
-            _map.HeightMap = mapview.height;
-            _map.InitPoints();
-
-            ShowMyMap();
+            _mapview = view;
+            _map = map;
         }
 
-        public void ShowMyMap()
-        {    
-            mapview.curIteration = _map.CurIteration.ToString();
-            mapview.QCargo = _map.NumCargoes.ToString();
-            mapview.QTruck = _map.NumTrucks.ToString();
-            mapview.Qiterations = _map.Iteration.ToString();
-            _map.WidthMap = mapview.width;
-            _map.HeightMap = mapview.height;
-            mapview.Field = _map.ShowMap();
+        public void GetDataFromForm()
+        {
+            Map.NumCargoes = Convert.ToInt32(Mapview.QCargo);
+            Map.NumTrucks = Convert.ToInt32(Mapview.QTruck);
+            Map.NumIterations = Convert.ToInt32(Mapview.Qiterations);
+            Map.WidthMap = Mapview.width;
+            Map.HeightMap = Mapview.height;
+            Map.InitPoints();
+            //ShowMyMap();
+        }
+
+        public void ShowMap()
+        {
+            Mapview.MapName = Map.MapName;
+            Mapview.curIteration = Map.CurIteration.ToString();
+            Mapview.QCargo = Map.NumCargoes.ToString();
+            Mapview.QTruck = Map.NumTrucks.ToString();
+            Mapview.Qiterations = Map.NumIterations.ToString();
+            Map.WidthMap = Mapview.width;
+            Map.HeightMap = Mapview.height;
+            Mapview.Field = Map.Show();
         }
 
         //public void LoadData()
@@ -52,12 +51,15 @@ namespace TruckSimulator
 
         public ArrayList GetArrayList()
         {
-            return _map.GetITruckList();
+            return Map.GetITruckList();
         }
 
         public void Runs1(del method)
         {
-            _map.RunMap(method);
+            Map.RunMap(method);
         }
+
+        private IMap _mapview;
+        private Map _map;
     }
 }

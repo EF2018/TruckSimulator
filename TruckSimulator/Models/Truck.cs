@@ -41,7 +41,12 @@ namespace TruckSimulator
             set { _fuelCharge = value; }
         }
 
-        
+        public Truck()
+        {
+            Pen = new Pen(Color.Blue);
+            TextColor = Brushes.Blue;
+        }
+
         public Truck(Coordinate position)
             : base(position)
         {

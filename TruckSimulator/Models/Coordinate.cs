@@ -20,6 +20,18 @@ namespace TruckSimulator
             set { _y = value; }
         }
 
+        public string Lat
+        {
+            get { return _lat; }
+            set { _lat = value; }
+        }
+
+        public string Lng
+        {
+            get { return _lng; }
+            set { _lng = value; }
+        }
+
         #region CTOR
         public Coordinate(int x, int y)
         {
@@ -35,6 +47,11 @@ namespace TruckSimulator
         #region Attributes
         int _x;
         int _y;
+        string _city;
+        string _lat;
+        string _lng;
         #endregion
+
+
     }
 }

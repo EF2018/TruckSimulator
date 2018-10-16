@@ -4,7 +4,7 @@
     <Position X="5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
-      <FileName>Models\Coordinate.cs</FileName>
+      <FileName>Models\CoordinateFinder.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TruckSimulator.Form1" BaseTypeListCollapsed="true">
@@ -15,52 +15,36 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="TruckSimulator.Models.Cargo">
+  <Class Name="TruckSimulator.Cargo">
     <Position X="5" Y="5" Width="1.5" />
-    <InheritanceLine Type="TruckSimulator.Models.Point" FixedToPoint="true">
-      <Path>
-        <Point X="7.5" Y="4.43" />
-        <Point X="7.5" Y="4.7" />
-        <Point X="5.625" Y="4.7" />
-        <Point X="5.625" Y="5" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAAQABAACAAAAAAAAgAQAAAAQ=</HashCode>
       <FileName>Models\Cargo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TruckSimulator.Models.Dijkstra" BaseTypeListCollapsed="true">
+  <Class Name="TruckSimulator.Dijkstra" BaseTypeListCollapsed="true">
     <Position X="15" Y="5" Width="1.5" />
-    <InheritanceLine Type="TruckSimulator.Models.Builder" FixedToPoint="true">
-      <Path>
-        <Point X="14.5" Y="4.238" />
-        <Point X="14.5" Y="4.625" />
-        <Point X="15.375" Y="4.625" />
-        <Point X="15.375" Y="5" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Algorithms\Dijkstra.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.1" Collapsed="true" />
   </Class>
-  <Class Name="TruckSimulator.Models.Map">
+  <Class Name="TruckSimulator.Map">
     <Position X="10.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IgAAAAAAAAABGEQF4IAAEQAAACAEAyAgEMAAAAAAMEE=</HashCode>
       <FileName>Models\Map.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TruckSimulator.Models.Point">
+  <Class Name="TruckSimulator.Point">
     <Position X="6.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAACAAoAAAAAQQAAACAAAAAABAAgAACAAQ=</HashCode>
       <FileName>Models\Point.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TruckSimulator.Models.Truck">
+  <Class Name="TruckSimulator.Truck">
     <Position X="6.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AECAAAAEAYAQAAAAAAAAAYAAAAAAAAAAAEABIAAEGAQ=</HashCode>
@@ -68,44 +52,41 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TruckSimulator.Models.User">
+  <Class Name="TruckSimulator.User">
     <Position X="8.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAAAQEAECAAAAAAAAAAAQAAAABEAAACAQ=</HashCode>
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TruckSimulator.Models.Way">
-    <Position X="8.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAEEAAAACAggABAAAAAAAAAAAAAAAAAAEAAAABAAAg=</HashCode>
-      <FileName>Models\Way.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TruckSimulator.Presenters.MapPresenter">
-    <Position X="2.75" Y="3.25" Width="1.5" />
+  <Class Name="TruckSimulator.MapPresenter">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <AssociationLine Name="_map" Type="TruckSimulator.Map" ManuallyRouted="true">
+      <Path>
+        <Point X="3.25" Y="2.824" />
+        <Point X="3.25" Y="3.896" />
+        <Point X="9.998" Y="3.896" />
+        <Point X="9.998" Y="4.819" />
+        <Point X="10.25" Y="4.819" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAAIAAAAAAAgAgAQAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Presenters\MapPresenter.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_map" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="TruckSimulator.Models.Lexographic">
+  <Class Name="TruckSimulator.Lexographic">
     <Position X="13.5" Y="5" Width="1.5" />
-    <InheritanceLine Type="TruckSimulator.Models.Builder" FixedFromPoint="true">
-      <Path>
-        <Point X="14.5" Y="4.238" />
-        <Point X="14.5" Y="4.625" />
-        <Point X="14.25" Y="4.625" />
-        <Point X="14.25" Y="5" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Algorithms\Lexographic.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TruckSimulator.Models.Genetic">
+  <Class Name="TruckSimulator.Genetic">
     <Position X="16.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
@@ -113,37 +94,29 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TruckSimulator.Models.BruteForce">
+  <Class Name="TruckSimulator.BruteForce">
     <Position X="12" Y="5" Width="1.5" />
-    <InheritanceLine Type="TruckSimulator.Models.Builder" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="14.5" Y="4.238" />
-        <Point X="14.5" Y="4.625" />
-        <Point X="12.75" Y="4.625" />
-        <Point X="12.75" Y="5" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAIAgAAAAAAAAAAAAAAACABAQAAAIAkBQQQBAAAAAA=</HashCode>
       <FileName>Models\Algorithms\BruteForce.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TruckSimulator.Models.Builder">
+  <Class Name="TruckSimulator.Builder">
     <Position X="13.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAEAAIAAAAAAAABQACAAAAQAAABAAAABCgAA=</HashCode>
       <FileName>Models\Builder.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="TruckSimulator.Models.IRouteSearcher">
+  <Interface Name="TruckSimulator.IRouteSearcher">
     <Position X="12" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Algorithms\IRouteSearcher.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="TruckSimulator.Models.ITruck">
+  <Interface Name="TruckSimulator.ITruck">
     <Position X="8.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAIAQAAAAAAAAAAAAAAAAAAAAAEABAAAECAQ=</HashCode>

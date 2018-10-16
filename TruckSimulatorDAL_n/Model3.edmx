@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model3.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model3StoreContainer">
+    <EntitySet Name="PointSet" EntityType="Model3.Store.PointSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MapSet" EntityType="Model3.Store.MapSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PointSet_MapPoint" EntityType="Model3.Store.PointSet_MapPoint" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PointSet_Vehicle" EntityType="Model3.Store.PointSet_Vehicle" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PointSet_RoutePoint" EntityType="Model3.Store.PointSet_RoutePoint" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PointSet_Cargo" EntityType="Model3.Store.PointSet_Cargo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PointSet_User" EntityType="Model3.Store.PointSet_User" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PointSet_Truck" EntityType="Model3.Store.PointSet_Truck" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="MapMapPoint" Association="Model3.Store.MapMapPoint">
+      <End Role="Map" EntitySet="MapSet" />
+      <End Role="MapPoint" EntitySet="PointSet_MapPoint" />
+    </AssociationSet>
+    <AssociationSet Name="VehicleRoutePoint" Association="Model3.Store.VehicleRoutePoint">
+      <End Role="Vehicle" EntitySet="PointSet_Vehicle" />
+      <End Role="RoutePoint" EntitySet="PointSet_RoutePoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MapPoint_inherits_Point" Association="Model3.Store.FK_MapPoint_inherits_Point">
+      <End Role="Point" EntitySet="PointSet" />
+      <End Role="MapPoint" EntitySet="PointSet_MapPoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vehicle_inherits_MapPoint" Association="Model3.Store.FK_Vehicle_inherits_MapPoint">
+      <End Role="MapPoint" EntitySet="PointSet_MapPoint" />
+      <End Role="Vehicle" EntitySet="PointSet_Vehicle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoutePoint_inherits_Point" Association="Model3.Store.FK_RoutePoint_inherits_Point">
+      <End Role="Point" EntitySet="PointSet" />
+      <End Role="RoutePoint" EntitySet="PointSet_RoutePoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cargo_inherits_MapPoint" Association="Model3.Store.FK_Cargo_inherits_MapPoint">
+      <End Role="MapPoint" EntitySet="PointSet_MapPoint" />
+      <End Role="Cargo" EntitySet="PointSet_Cargo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_inherits_Vehicle" Association="Model3.Store.FK_User_inherits_Vehicle">
+      <End Role="Vehicle" EntitySet="PointSet_Vehicle" />
+      <End Role="User" EntitySet="PointSet_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Truck_inherits_Vehicle" Association="Model3.Store.FK_Truck_inherits_Vehicle">
+      <End Role="Vehicle" EntitySet="PointSet_Vehicle" />
+      <End Role="Truck" EntitySet="PointSet_Truck" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PointSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Position_X" Type="int" Nullable="false" />
+    <Property Name="Position_Y" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MapSet">
+    <Key>
+      <PropertyRef Name="IdMap" />
+    </Key>
+    <Property Name="IdMap" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MapName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NumCargoes" Type="int" Nullable="false" />
+    <Property Name="NumTrucks" Type="int" Nullable="false" />
+    <Property Name="NumIterations" Type="int" Nullable="false" />
+    <Property Name="CurIteration" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PointSet_MapPoint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MapIdMap" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PointSet_Vehicle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="StepOfRoute" Type="int" Nullable="false" />
+    <Property Name="Fuelbalance" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="FuelCharge" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PointSet_RoutePoint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="VehicleId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PointSet_Cargo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="StatusCargo" Type="bit" Nullable="false" />
+    <Property Name="Value" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PointSet_User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PointSet_Truck">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="MapMapPoint">
+    <End Role="Map" Type="Model3.Store.MapSet" Multiplicity="1" />
+    <End Role="MapPoint" Type="Model3.Store.PointSet_MapPoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Map">
+        <PropertyRef Name="IdMap" />
+      </Principal>
+      <Dependent Role="MapPoint">
+        <PropertyRef Name="MapIdMap" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VehicleRoutePoint">
+    <End Role="Vehicle" Type="Model3.Store.PointSet_Vehicle" Multiplicity="1" />
+    <End Role="RoutePoint" Type="Model3.Store.PointSet_RoutePoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicle">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoutePoint">
+        <PropertyRef Name="VehicleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MapPoint_inherits_Point">
+    <End Role="Point" Type="Model3.Store.PointSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MapPoint" Type="Model3.Store.PointSet_MapPoint" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Point">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MapPoint">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vehicle_inherits_MapPoint">
+    <End Role="MapPoint" Type="Model3.Store.PointSet_MapPoint" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Vehicle" Type="Model3.Store.PointSet_Vehicle" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="MapPoint">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehicle">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoutePoint_inherits_Point">
+    <End Role="Point" Type="Model3.Store.PointSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RoutePoint" Type="Model3.Store.PointSet_RoutePoint" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Point">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoutePoint">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cargo_inherits_MapPoint">
+    <End Role="MapPoint" Type="Model3.Store.PointSet_MapPoint" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Cargo" Type="Model3.Store.PointSet_Cargo" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="MapPoint">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cargo">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_inherits_Vehicle">
+    <End Role="Vehicle" Type="Model3.Store.PointSet_Vehicle" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="User" Type="Model3.Store.PointSet_User" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicle">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Truck_inherits_Vehicle">
+    <End Role="Vehicle" Type="Model3.Store.PointSet_Vehicle" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Truck" Type="Model3.Store.PointSet_Truck" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicle">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Truck">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model3" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model3Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PointSet" EntityType="Model3.Point" />
+          <EntitySet Name="MapSet" EntityType="Model3.Map" />
+          <AssociationSet Name="MapMapPoint" Association="Model3.MapMapPoint">
+            <End Role="Map" EntitySet="MapSet" />
+            <End Role="MapPoint" EntitySet="PointSet" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleRoutePoint" Association="Model3.VehicleRoutePoint">
+            <End Role="Vehicle" EntitySet="PointSet" />
+            <End Role="RoutePoint" EntitySet="PointSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="Coordinate" >
+          <Property Type="Int32" Name="X" Nullable="false" />
+          <Property Type="Int32" Name="Y" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Point">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Position" Type="Model3.Coordinate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MapPoint" BaseType="Model3.Point" >
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Map" Relationship="Model3.MapMapPoint" FromRole="MapPoint" ToRole="Map" />
+          <Property Name="MapIdMap" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Map">
+          <Key>
+            <PropertyRef Name="IdMap" />
+          </Key>
+          <Property Name="IdMap" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MapName" Type="String" Nullable="false" />
+          <Property Name="NumCargoes" Type="Int32" Nullable="false" />
+          <Property Name="NumTrucks" Type="Int32" Nullable="false" />
+          <Property Name="NumIterations" Type="Int32" Nullable="false" />
+          <Property Name="CurIteration" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MapPoint" Relationship="Model3.MapMapPoint" FromRole="Map" ToRole="MapPoint" />
+        </EntityType>
+        <Association Name="MapMapPoint">
+          <End Type="Model3.Map" Role="Map" Multiplicity="1" />
+          <End Type="Model3.MapPoint" Role="MapPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Map">
+              <PropertyRef Name="IdMap" />
+            </Principal>
+            <Dependent Role="MapPoint">
+              <PropertyRef Name="MapIdMap" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RoutePoint" BaseType="Model3.Point" >
+          <NavigationProperty Name="Vehicle" Relationship="Model3.VehicleRoutePoint" FromRole="RoutePoint" ToRole="Vehicle" />
+          <Property Name="VehicleId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vehicle" BaseType="Model3.MapPoint" >
+          <Property Name="StepOfRoute" Type="Int32" Nullable="false" />
+          <Property Name="Fuelbalance" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="FuelCharge" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RoutePoint" Relationship="Model3.VehicleRoutePoint" FromRole="Vehicle" ToRole="RoutePoint" />
+        </EntityType>
+        <Association Name="VehicleRoutePoint">
+          <End Type="Model3.Vehicle" Role="Vehicle" Multiplicity="1" />
+          <End Type="Model3.RoutePoint" Role="RoutePoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoutePoint">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cargo" BaseType="Model3.MapPoint" >
+          <Property Name="StatusCargo" Type="Boolean" Nullable="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User" BaseType="Model3.Vehicle" />
+        <EntityType Name="Truck" BaseType="Model3.Vehicle" />
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model3StoreContainer" CdmEntityContainer="Model3Container">
+    <EntitySetMapping Name="PointSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model3.Point)">
+        <MappingFragment StoreEntitySet="PointSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ComplexProperty Name="Position" TypeName="Model3.Coordinate">
+            <ScalarProperty Name="X" ColumnName="Position_X" />
+            <ScalarProperty Name="Y" ColumnName="Position_Y" />
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model3.MapPoint)">
+        <MappingFragment StoreEntitySet="PointSet_MapPoint">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MapIdMap" ColumnName="MapIdMap" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model3.Vehicle)">
+        <MappingFragment StoreEntitySet="PointSet_Vehicle">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StepOfRoute" ColumnName="StepOfRoute" />
+          <ScalarProperty Name="Fuelbalance" ColumnName="Fuelbalance" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="FuelCharge" ColumnName="FuelCharge" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model3.RoutePoint)">
+        <MappingFragment StoreEntitySet="PointSet_RoutePoint">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model3.Cargo)">
+        <MappingFragment StoreEntitySet="PointSet_Cargo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StatusCargo" ColumnName="StatusCargo" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model3.User)">
+        <MappingFragment StoreEntitySet="PointSet_User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model3.Truck)">
+        <MappingFragment StoreEntitySet="PointSet_Truck">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MapSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model3.Map)">
+        <MappingFragment StoreEntitySet="MapSet">
+          <ScalarProperty Name="IdMap" ColumnName="IdMap" />
+          <ScalarProperty Name="MapName" ColumnName="MapName" />
+          <ScalarProperty Name="NumCargoes" ColumnName="NumCargoes" />
+          <ScalarProperty Name="NumTrucks" ColumnName="NumTrucks" />
+          <ScalarProperty Name="NumIterations" ColumnName="NumIterations" />
+          <ScalarProperty Name="CurIteration" ColumnName="CurIteration" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

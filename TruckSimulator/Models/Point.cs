@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace TruckSimulator
 {
     public class Point
     {
         #region Properties        
+
+        [Key]
+        public int ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         public Font Font
         {
             get { return _font; }
@@ -35,7 +39,7 @@ namespace TruckSimulator
             set { _name = value; }
         }
 
-        public System.Drawing.Brush TextColor
+        public Brush TextColor
         {
             get { return _textColor; }
             set { _textColor = value; }
@@ -53,6 +57,7 @@ namespace TruckSimulator
 
         public Point()
         {
+            _font = new Font(FontFamily.GenericMonospace, 10);
             _position = new Coordinate();
             _pen = new Pen(Color.Black);
         }
@@ -70,10 +75,11 @@ namespace TruckSimulator
         }
 
         #region Attributes
+        private int _id;
         private string _name;
         private Pen _pen;
         private Font _font;
-        private System.Drawing.Brush _textColor;
+        private Brush _textColor;
         private Coordinate _position;
         #endregion
     }

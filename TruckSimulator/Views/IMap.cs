@@ -10,6 +10,7 @@ namespace TruckSimulator
 {
     public interface IMap
     {
+        string MapName { get; set; }
         string Qiterations { get; set; }
         string curIteration { get; set; }
         string QCargo { get; set; }

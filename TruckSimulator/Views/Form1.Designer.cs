@@ -51,6 +51,7 @@ namespace TruckSimulator
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.lblIteration = new System.Windows.Forms.Label();
             this.btn_Stop = new System.Windows.Forms.Button();
+            this.lblMapName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.myChartTimePermutation)).BeginInit();
@@ -60,9 +61,9 @@ namespace TruckSimulator
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 41);
+            this.pictureBox1.Location = new System.Drawing.Point(15, 47);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(418, 289);
+            this.pictureBox1.Size = new System.Drawing.Size(418, 283);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseClick);
@@ -75,7 +76,7 @@ namespace TruckSimulator
             this.btn_GetPoints.TabIndex = 2;
             this.btn_GetPoints.Text = "Получить точки";
             this.btn_GetPoints.UseVisualStyleBackColor = true;
-            this.btn_GetPoints.Click += new System.EventHandler(this.btn_GetPoints_Click);
+            this.btn_GetPoints.Click += new System.EventHandler(this.btn_GetNewPoints_Click);
             // 
             // txtIterations
             // 
@@ -224,11 +225,20 @@ namespace TruckSimulator
             this.btn_Stop.Text = "Стоп";
             this.btn_Stop.UseVisualStyleBackColor = true;
             // 
+            // lblMapName
+            // 
+            this.lblMapName.AutoSize = true;
+            this.lblMapName.Location = new System.Drawing.Point(19, 31);
+            this.lblMapName.Name = "lblMapName";
+            this.lblMapName.Size = new System.Drawing.Size(0, 13);
+            this.lblMapName.TabIndex = 31;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(714, 423);
+            this.Controls.Add(this.lblMapName);
             this.Controls.Add(this.btn_Stop);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.lblIteration);
@@ -278,6 +288,7 @@ namespace TruckSimulator
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Label lblIteration;
         private System.Windows.Forms.Button btn_Stop;
+        private System.Windows.Forms.Label lblMapName;
 
 
         //private System.Diagnostics.Stopwatch Watch= new System.Diagnostics.Stopwatch();

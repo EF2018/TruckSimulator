@@ -20,6 +20,13 @@ namespace TruckSimulator
             set { _choosePointsArr = value; }
         }
 
+        public User()
+        {
+            Font = new Font(FontFamily.GenericMonospace, 10);
+            TextColor = Brushes.Orange;
+            Pen = new Pen(Color.Orange);
+        }
+
         public User(Coordinate position):base(position)
         {
             ChoosePointsArr = new List<Cargo>();

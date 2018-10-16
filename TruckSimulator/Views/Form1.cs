@@ -1,22 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
 using System.Threading;
-using System.Windows.Forms.DataVisualization.Charting;
-using TruckSimulator;
 using System.Data.SqlClient;
 using System.Data.Common;
 
 namespace TruckSimulator
 {
-    delegate void del(object x, EventArgs y);
     delegate void ArgReturningVoidDelegate();
     delegate void StringArgReturningVoidDelegate(string x);
 
@@ -24,6 +16,12 @@ namespace TruckSimulator
     {
         private Thread demoThread = null;
         MapPresenter presenter;
+
+        string IMap.MapName
+        {
+            get { return lblMapName.Text; }
+            set { lblMapName.Text = value; }
+        }
 
         string IMap.Qiterations
         {
@@ -104,10 +102,11 @@ namespace TruckSimulator
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void btn_GetPoints_Click(object sender, EventArgs e)
+        public void btn_GetNewPoints_Click(object sender, EventArgs e)
         {
             presenter = new MapPresenter(this);
-            presenter.ShowPoints();
+            presenter.GetDataFromForm();
+            presenter.ShowMap();
             UpdateStat();
         }
 
@@ -118,7 +117,7 @@ namespace TruckSimulator
         /// <param name="e"></param>
         public void UpdateFields(object sender, EventArgs e)
         {
-            presenter.ShowMyMap();
+            presenter.ShowMap();
             UpdateStat();
         }
 
@@ -142,7 +141,7 @@ namespace TruckSimulator
                     this.dataGridView1[0, i].Value = ((TruckSimulator.Point)(Arr[i])).GetType().Name + ((TruckSimulator.Point)(Arr[i])).Name.ToString();
                     this.dataGridView1[1, i].Value = ((TruckSimulator.ITruck)(Arr[i])).Fuelbalance;
                 }
-                lblIteration.Text = this.presenter._map.CurIteration.ToString();
+                lblIteration.Text = this.presenter.Map.CurIteration.ToString();
                 this.Invalidate();
             }
         }
@@ -258,22 +257,22 @@ namespace TruckSimulator
                     commInsert.Parameters["@SaveName"].Value = DateTime.Now.ToString();
 
                     commInsert.Parameters.Add("@Iterations", SqlDbType.Int);
-                    commInsert.Parameters["@Iterations"].Value =presenter._map.Iteration;
+                    commInsert.Parameters["@Iterations"].Value =presenter.Map.NumIterations;
 
                     commInsert.Parameters.Add("@CurIteration", SqlDbType.Int);
-                    commInsert.Parameters["@CurIteration"].Value = presenter._map.CurIteration;
+                    commInsert.Parameters["@CurIteration"].Value = presenter.Map.CurIteration;
 
                     commInsert.Parameters.Add("@QTruck", SqlDbType.Int);
-                    commInsert.Parameters["@QTruck"].Value = presenter._map.NumTrucks;
+                    commInsert.Parameters["@QTruck"].Value = presenter.Map.NumTrucks;
 
                     commInsert.Parameters.Add("@QCargo", SqlDbType.Int);
-                    commInsert.Parameters["@QCargo"].Value = presenter._map.NumCargoes;
+                    commInsert.Parameters["@QCargo"].Value = presenter.Map.NumCargoes;
 
                     commInsert.ExecuteNonQuery();
 
-                    for (int i = 0; i < presenter._map._points.Count; i++)
+                    for (int i = 0; i < presenter.Map.Points.Count; i++)
                     {
-                        if (presenter._map._points[i] is Truck)
+                        if (presenter.Map.Points[i] is Truck)
                         {
                             try
                             {
@@ -283,25 +282,25 @@ namespace TruckSimulator
                                 commInsertTrucks.Parameters["@IdGame"].Value = 1;
 
                                 commInsertTrucks.Parameters.Add("@TypeName", SqlDbType.NChar, 50);
-                                commInsertTrucks.Parameters["@TypeName"].Value = ((Truck)presenter._map._points[i]).GetType().Name;
+                                commInsertTrucks.Parameters["@TypeName"].Value = ((Truck)presenter.Map.Points[i]).GetType().Name;
 
                                 commInsertTrucks.Parameters.Add("@NameTruck", SqlDbType.NChar, 10);
-                                commInsertTrucks.Parameters["@NameTruck"].Value = ((Truck)presenter._map._points[i]).Name;
+                                commInsertTrucks.Parameters["@NameTruck"].Value = ((Truck)presenter.Map.Points[i]).Name;
 
                                 commInsertTrucks.Parameters.Add("@PositionX", SqlDbType.Int);
-                                commInsertTrucks.Parameters["@PositionX"].Value = ((Truck)presenter._map._points[i]).Position.X;
+                                commInsertTrucks.Parameters["@PositionX"].Value = ((Truck)presenter.Map.Points[i]).Position.X;
 
                                 commInsertTrucks.Parameters.Add("@PositionY", SqlDbType.Int);
-                                commInsertTrucks.Parameters["@PositionY"].Value = ((Truck)presenter._map._points[i]).Position.Y;
+                                commInsertTrucks.Parameters["@PositionY"].Value = ((Truck)presenter.Map.Points[i]).Position.Y;
 
                                 commInsertTrucks.Parameters.Add("@Status", SqlDbType.Bit);
-                                commInsertTrucks.Parameters["@Status"].Value = ((Truck)presenter._map._points[i]).Status;
+                                commInsertTrucks.Parameters["@Status"].Value = ((Truck)presenter.Map.Points[i]).Status;
 
                                 commInsertTrucks.Parameters.Add("@FuelBalance", SqlDbType.Int);
-                                commInsertTrucks.Parameters["@FuelBalance"].Value = ((Truck)presenter._map._points[i]).Fuelbalance;
+                                commInsertTrucks.Parameters["@FuelBalance"].Value = ((Truck)presenter.Map.Points[i]).Fuelbalance;
 
                                 commInsertTrucks.Parameters.Add("@StepOfRoute", SqlDbType.Int);
-                                commInsertTrucks.Parameters["@StepOfRoute"].Value = ((Truck)presenter._map._points[i]).StepOfRoute;
+                                commInsertTrucks.Parameters["@StepOfRoute"].Value = ((Truck)presenter.Map.Points[i]).StepOfRoute;
 
                                 commInsertTrucks.ExecuteNonQuery();
                             }
@@ -311,7 +310,7 @@ namespace TruckSimulator
                             }
 
                         }
-                        if (presenter._map._points[i] is Cargo)
+                        if (presenter.Map.Points[i] is Cargo)
                         {
                             try
                             {
@@ -321,19 +320,19 @@ namespace TruckSimulator
                                 commInsertCargoes.Parameters["@IdGame"].Value = 1;
 
                                 commInsertCargoes.Parameters.Add("@TypeName", SqlDbType.NChar, 50);
-                                commInsertCargoes.Parameters["@TypeName"].Value = ((Cargo)presenter._map._points[i]).GetType().Name;
+                                commInsertCargoes.Parameters["@TypeName"].Value = ((Cargo)presenter.Map.Points[i]).GetType().Name;
 
                                 commInsertCargoes.Parameters.Add("@NameCargo", SqlDbType.NChar, 10);
-                                commInsertCargoes.Parameters["@NameCargo"].Value = ((Cargo)presenter._map._points[i]).Name;
+                                commInsertCargoes.Parameters["@NameCargo"].Value = ((Cargo)presenter.Map.Points[i]).Name;
 
                                 commInsertCargoes.Parameters.Add("@PositionX", SqlDbType.Int);
-                                commInsertCargoes.Parameters["@PositionX"].Value = ((Cargo)presenter._map._points[i]).Position.X;
+                                commInsertCargoes.Parameters["@PositionX"].Value = ((Cargo)presenter.Map.Points[i]).Position.X;
 
                                 commInsertCargoes.Parameters.Add("@PositionY", SqlDbType.Int);
-                                commInsertCargoes.Parameters["@PositionY"].Value = ((Cargo)presenter._map._points[i]).Position.Y;
+                                commInsertCargoes.Parameters["@PositionY"].Value = ((Cargo)presenter.Map.Points[i]).Position.Y;
 
                                 commInsertCargoes.Parameters.Add("@Status", SqlDbType.Bit);
-                                commInsertCargoes.Parameters["@Status"].Value = ((Cargo)presenter._map._points[i]).StatusCargo;
+                                commInsertCargoes.Parameters["@Status"].Value = ((Cargo)presenter.Map.Points[i]).StatusCargo;
 
                                 commInsertCargoes.ExecuteNonQuery();
                             }
@@ -381,10 +380,10 @@ namespace TruckSimulator
                     {
                         while (reader.Read())
                         {
-                            presenter._map.Iteration = Convert.ToInt32(reader.GetValue(0));
-                            presenter._map.NumCargoes = Convert.ToInt32(reader.GetValue(2));
-                            presenter._map.NumTrucks = Convert.ToInt32(reader.GetValue(3));
-                            presenter._map.CurIteration = Convert.ToInt32(reader.GetValue(1));
+                            presenter.Map.NumIterations = Convert.ToInt32(reader.GetValue(0));
+                            presenter.Map.NumCargoes = Convert.ToInt32(reader.GetValue(2));
+                            presenter.Map.NumTrucks = Convert.ToInt32(reader.GetValue(3));
+                            presenter.Map.CurIteration = Convert.ToInt32(reader.GetValue(1));
                         }
                     }
                 }
@@ -418,7 +417,7 @@ namespace TruckSimulator
                             truck.Status = Convert.ToBoolean(reader.GetValue(4));
                             truck.Fuelbalance = Convert.ToInt32(reader.GetValue(5));
                             truck.StepOfRoute = Convert.ToInt32(reader.GetValue(6));
-                            presenter._map._points.Add(truck);
+                            presenter.Map.Points.Add(truck);
                         }
                     }
                 }
@@ -447,12 +446,12 @@ namespace TruckSimulator
                                 cargo.Pen = new Pen(Color.RosyBrown);
                                 cargo.TextColor = Brushes.RosyBrown;
                             }
-                            presenter._map._points.Add(cargo);
+                            presenter.Map.Points.Add(cargo);
                         }
                     }
                 }
             }
-            presenter.ShowMyMap();
+            presenter.ShowMap();
         }
 
     }
